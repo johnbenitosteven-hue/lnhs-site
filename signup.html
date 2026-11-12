@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | LNHS Missed Activities And Management</title>
+  <link rel="icon" type="image/png" href="images/school-logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+  <div class="window">
+    <div class="title-bar">
+      <img src="images/school-logo.png" alt="Lawaan National High School logo">
+      <span>LNHS Missed Activities And Management</span>
+    </div>
+
+    <div class="container">
+      <!-- Left: Sign up form -->
+      <div class="left">
+        <h2>Create Account</h2>
+        <div class="login-tabs" id="roleTabs">
+          <button type="button" data-role="student" class="active">I'm a student</button>
+          <button type="button" data-role="teacher">I'm a teacher</button>
+        </div>
+        <form id="signupForm">
+          <div id="signupMsg" class="auth-msg"></div>
+          <div class="field">
+            <label for="username">Username</label>
+            <input type="text" id="username" required>
+          </div>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" minlength="6" required>
+          </div>
+
+          <div id="studentFields">
+            <div class="field">
+              <label for="grade">Grade level</label>
+              <select id="grade"><option value="7">Grade 7</option><option value="8">Grade 8</option><option value="9">Grade 9</option><option value="10">Grade 10</option><option value="11" selected>Grade 11</option><option value="12">Grade 12</option></select>
+            </div>
+            <div class="field">
+              <label for="section">Section</label>
+              <select id="section"><option>Mabanag</option><option>Rizal</option><option>Bonifacio</option></select>
+            </div>
+          </div>
+          <div id="teacherFields" class="hidden">
+            <div class="field">
+              <label for="teacherKey">Teacher key</label>
+              <input type="password" id="teacherKey" autocomplete="off">
+            </div>
+          </div>
+
+          <button type="submit" class="btn-main">Sign up</button>
+          <p class="or">or</p>
+
+          <button type="button" class="btn-social" data-social>
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path fill="#fff" d="M13.5 19v-6h2l.3-2.4h-2.3V9.1c0-.7.2-1.2 1.2-1.2h1.2V5.8c-.2 0-1-.1-1.8-.1-1.8 0-3 1.1-3 3.1v1.8H9V13h2.1v6z"/></svg>
+            Continue with Facebook
+          </button>
+          <button type="button" class="btn-social" data-social>
+            <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
+            Continue with Gmail
+          </button>
+        </form>
+
+        <p class="switch">Already have an account? <a href="login.html">Log In</a></p>
+      </div>
+
+      <!-- Right: Branding -->
+      <div class="right">
+        <img src="images/site-logo.png" alt="Missed Activities and Management logo" class="logo">
+        <h1 class="welcome">Welcome to</h1>
+        <p class="brand">LNHS Missed Activities Management</p>
+        <p class="school">Lawaan National High School</p>
+        <p class="tagline">
+          Missed Activities &amp; Activity Sheet Pickup Box
+          <small>"Never Miss an Activity Again."</small>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    if (getSession()) window.location.replace("index.html");
+
+    wireSocialButtons();
+
+    let role = "student";
+    document.getElementById("roleTabs").addEventListener("click", e => {
+      const b = e.target.closest("button[data-role]");
+      if (!b) return;
+      role = b.dataset.role;
+      document.querySelectorAll("#roleTabs button").forEach(x => x.classList.toggle("active", x === b));
+      document.getElementById("studentFields").classList.toggle("hidden", role !== "student");
+      document.getElementById("teacherFields").classList.toggle("hidden", role !== "teacher");
+      document.getElementById("teacherKey").required = role === "teacher";
+    });
+
+    document.getElementById("signupForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const password = document.getElementById("password").value;
+      const users = getUsers();
+
+      if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) return showMsg("signupMsg", "That username is already taken.", "error");
+      if (users.some(u => u.email === email)) return showMsg("signupMsg", "An account with that email already exists.", "error");
+
+      if (role === "teacher" && document.getElementById("teacherKey").value.trim() !== TEACHER_KEY) return showMsg("signupMsg", "Wrong teacher key. Ask your administrator.", "error");
+
+      const acct = { username, email, password, role };
+      if (role === "student") { acct.grade = document.getElementById("grade").value; acct.section = document.getElementById("section").value; }
+      users.push(acct);
+      saveUsers(users);
+
+      // Redirect to login
+      window.location.href = "login.html?created=" + encodeURIComponent(username);
+    });
+  </script>
+</body>
+</html>

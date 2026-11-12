@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LNHS Missed Activities And Management</title>
+<link rel="icon" type="image/png" href="images/school-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="home-page">
+
+<!-- Title bar with school logo -->
+<div class="title-bar">
+  <img src="images/school-logo.png" alt="Lawaan National High School logo">
+  <span>LNHS Missed Activities And Management</span>
+</div>
+
+<!-- Top brand bar with website logo + log out -->
+<div class="topbrand">
+  <img class="logo" src="images/site-logo.png" alt="Missed Activities and Management logo"> LNHS HANDOUTHUB
+  <div class="userbox">
+    <span>👋 Hi, <span id="whoami"></span></span>
+    <button class="btn-logout" id="logoutBtn">⎋ Log out</button>
+  </div>
+</div>
+
+<div class="header">
+  <div class="icon">📦</div>
+  <h1>Missed Handouts &amp; Activity Box</h1>
+  <div class="search"><span>🔍</span><input id="search" type="text" placeholder="Search subject, teacher, topic..." /></div>
+  <button class="btn" id="printPacket">🖨️ Print Packet</button>
+  <button class="btn" id="codeGen">🔑 Code Generator</button>
+  <button class="btn primary" id="dropIn">⊕ Teacher Drop-In</button>
+</div>
+
+<div class="nav" id="nav">
+  <button data-page="pickup" class="active">📦 The Pickup<br>Box</button>
+  <button data-page="catchup">🧑‍🎓 Absent? Catch-Up<br>Hub</button>
+  <button data-page="upcoming">📅 Upcoming<br>Assignments</button>
+  <button data-page="mylist">✅ My Pickup<br>List</button>
+  <span class="loc" id="locLabel">🏫 Classroom Pickup</span>
+</div>
+
+<section class="hero">
+  <h2>Missed a class? Don’t fall behind.</h2>
+  <p>Every daily worksheet, activity sheet, and lab manual distributed by your teachers is cataloged right here. Pick up physical extra copies in the classroom crates or print them instantly from home.</p>
+  <button class="btn" id="printAll">🖨️ Print All Visible Handouts (<span id="visCount">0</span>)</button>
+</section>
+
+<div class="filters">
+  <label>▼ Filter:</label>
+  <select id="grade"><option value="">Grade:</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select>
+  <select id="section"><option value="">Section:</option><option>Mabanag</option><option>Rizal</option><option>Bonifacio</option></select>
+  <select id="date">
+    <option value="">Any Date Assigned</option>
+    <option value="today">Today</option>
+    <option value="week">This Week</option>
+    <option value="month">This Month</option>
+  </select>
+  <div class="views">View:
+    <div class="group" id="views">
+      <button data-view="crate" class="active">🗂️ Hanging Crate</button>
+      <button data-view="grid">▦ Grid</button>
+      <button data-view="table">☰ Table</button>
+    </div>
+  </div>
+</div>
+
+<div class="subjects" id="subjects"></div>
+
+<main class="crate" id="crate">
+  <div class="crate-head">
+    <div class="crate-title"><b>[ ACTIVITIES ]</b><span id="crateSub">Hanging folders with remaining paper copies</span></div>
+    <div class="pill" id="docCount">0 documents inside</div>
+  </div>
+  <div id="content"></div>
+</main>
+
+<footer class="footer" id="contact">
+  <div class="col">
+    <h4>Contact information</h4>
+    <p>Web developer: Steven john benito<br>
+       Phone: 09198395891<br>
+       Email: <a href="mailto:johnbenitosteven@gmail.com">johnbenitosteven@gmail.com</a></p>
+  </div>
+  <div class="col">
+    <h4>Links</h4>
+    <div class="links">
+      <a href="#">Home</a><a href="#">Blogs</a><a href="#">Privacy</a>
+      <a href="#">Wordpress</a><a href="#">Mystory</a><a href="mailto:johnbenitosteven@gmail.com">Contact Me</a>
+      <a href="#">Videos</a><a href="#">Terms</a><a href="#">Resume</a>
+    </div>
+  </div>
+  <div class="col">
+    <h4>Socials</h4>
+    <div class="socials">
+      <a class="fb" href="https://www.facebook.com/search/top?q=steven%20john%20benito" target="_blank" rel="noopener" aria-label="Facebook: Steven John Benito" title="Facebook: Steven John Benito">
+        <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#1877f2"/><path fill="#fff" d="M26.6 44V28.6h5.1l.8-6h-5.9v-3.8c0-1.7.5-2.9 3-2.9h3.1v-5.4c-.5-.1-2.4-.2-4.6-.2-4.5 0-7.6 2.8-7.6 7.8v4.5h-5.1v6h5.1V44z"/></svg>
+      </a>
+      <a href="mailto:johnbenitosteven@gmail.com" aria-label="Gmail: johnbenitosteven@gmail.com" title="johnbenitosteven@gmail.com">
+        <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.6 5.9c4.4-4.1 7-10.1 7-17.6z"/><path fill="#FBBC05" d="M10.5 28.7a14.5 14.5 0 0 1 0-9.4l-7.9-6.1a24 24 0 0 0 0 21.6z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.6-5.9c-2.1 1.4-4.9 2.3-8.3 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.600 48 24 48z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-bg" id="modalBg">
+  <form class="modal" id="dropForm">
+    <h3>Teacher Drop-In</h3>
+    <input id="fTitle" placeholder="Handout title" required />
+    <input id="fTeacher" placeholder="Teacher name" required />
+    <input id="fSubject" list="subjectList" placeholder="Subject (type a new one or pick)" required />
+    <datalist id="subjectList"></datalist>
+    <div class="two">
+      <div><label for="fGrade">Grade level</label>
+        <select id="fGrade" required>
+          <option value="7">Grade 7</option><option value="8">Grade 8</option><option value="9">Grade 9</option>
+          <option value="10">Grade 10</option><option value="11" selected>Grade 11</option><option value="12">Grade 12</option>
+        </select></div>
+      <div><label for="fSection">Section</label>
+        <select id="fSection"><option>Mabanag</option><option>Rizal</option><option>Bonifacio</option></select></div>
+    </div>
+    <input id="fCopies" type="number" min="1" value="10" placeholder="Copies left" />
+    <label>Attach file (optional)</label>
+    <div class="dropzone" id="dropzone">
+      📎 <span id="fileLabel">Click to choose a file or drag it here</span>
+      <small>PDF, Word, PowerPoint, images, etc.</small>
+      <input id="fFile" type="file" hidden />
+    </div>
+    <div class="row">
+      <button type="button" class="btn" id="cancelDrop">Cancel</button>
+      <button type="submit" class="btn primary">Add Handout</button>
+    </div>
+  </form>
+</div>
+<div class="modal-bg" id="codeBg">
+  <div class="modal codes-modal">
+    <h3>Section Code Generator</h3>
+    <p class="codes-help">Make a code for a section, then give it to those students. They choose <b>Section code</b> on the login page and will see only that section's handouts.</p>
+    <div class="two">
+      <div><label for="cGrade">Grade level</label>
+        <select id="cGrade">
+          <option value="7">Grade 7</option><option value="8">Grade 8</option><option value="9">Grade 9</option>
+          <option value="10">Grade 10</option><option value="11" selected>Grade 11</option><option value="12">Grade 12</option>
+        </select></div>
+      <div><label for="cSection">Section</label>
+        <select id="cSection"><option>Mabanag</option><option>Rizal</option><option>Bonifacio</option></select></div>
+    </div>
+    <button type="button" class="btn primary" id="makeCode">⚙ Generate code</button>
+    <div class="code-list" id="codeList"></div>
+    <div class="row"><button type="button" class="btn" id="closeCodes">Close</button></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="auth.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
